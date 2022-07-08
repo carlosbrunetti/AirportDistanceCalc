@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AirportDistanceCalc.Domain\AirportDistanceCalc.Domain.csproj" />
+    <ProjectReference Include="..\AirportDistanceCalc.Infrastructure\AirportDistanceCalc.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

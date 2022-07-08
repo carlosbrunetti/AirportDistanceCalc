@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AirportDistanceCalc.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/v1/[controller]")]
     [ApiController]
     public class AirportController : ControllerBase
     {
@@ -16,12 +16,20 @@ namespace AirportDistanceCalc.Controllers
             _airportService = airportService;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Get([FromQuery] AirportCalcRequest airports)
+        [HttpPost(Name = "CalcDistanceBetweenAirports")]
+        public async Task<IActionResult> GetDistanceBetweenAirports([FromQuery] AirportCalcRequest airports)
         {
             var response = await _airportService.CalcDistanceBetweenAirports(airports);
 
             return !response.Errors.Any() ? Ok(response) : BadRequest(response);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Get()
+        {
+            return Ok(await _airportService.GetAll());
+
+            //return !response.Errors.Any() ? Ok(response) : BadRequest(response);
         }
     }
 }

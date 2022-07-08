@@ -11,6 +11,8 @@ using System.Net.Http.Headers;
 using AirportDistanceCalc.Domain.Extension;
 using Microsoft.AspNetCore.Http;
 using System.Net.Http.Json;
+using AirportDistanceCalc.Domain.Repositories.Interfaces;
+using AirportDistanceCalc.Domain.Models;
 
 namespace AirportDistanceCalc.Domain.Services
 {
@@ -19,14 +21,21 @@ namespace AirportDistanceCalc.Domain.Services
         private readonly IMapper _mapper;
         private readonly AirportAPI _airportAPI;
         private readonly IValidator<AirportCalcRequest> _validator;
+        private readonly IAirportRepository _airportRepository;
         private Response _response;
 
-        public AirportService(IMapper mapper, AirportAPI airportAPI, IValidator<AirportCalcRequest> validator)
+        public AirportService(IMapper mapper, AirportAPI airportAPI, IValidator<AirportCalcRequest> validator,IAirportRepository airportRepository)
         {
             _mapper = mapper;
             _airportAPI = airportAPI;
             _validator = validator;
+            _airportRepository = airportRepository;
             _response = new Response();
+        }
+
+        public async Task<List<AirportVO>> GetAll()
+        {
+            return _mapper.Map<List<AirportVO>>(await _airportRepository.GetAll());
         }
 
         public async Task<Response> CalcDistanceBetweenAirports(AirportCalcRequest airports)
@@ -43,14 +52,17 @@ namespace AirportDistanceCalc.Domain.Services
 
             }
 
-            var origin = await GetAirport(airports.Origin, EnumAirport.Origin);
-            var destination = await GetAirport(airports.Destination, EnumAirport.Destination);
+            var origin = _mapper.Map<Airport>(await GetAirport(airports.Origin, EnumAirport.Origin));
+            var destination = _mapper.Map<Airport> (await GetAirport(airports.Destination, EnumAirport.Destination));
 
             if (origin is null || destination is null)
                 return _response;
+            
+            origin.AirportDestination = destination;
+            SaveSearchHistory(origin);
 
-            var coordinateFrom = new GeoCoordinate(origin.location.lat, origin.location.lon);
-            var coordinateTo = new GeoCoordinate(destination.location.lat, destination.location.lon);
+            var coordinateFrom = new GeoCoordinate(origin.Location.Latitude, origin.Location.Longitude);
+            var coordinateTo = new GeoCoordinate(destination.Location.Latitude, destination.Location.Longitude);
 
             _response.StatusCode = StatusCodes.Status200OK;
             _response.Data.Add("Result", Extensions.ConvertMetersToMiles(coordinateFrom.GetDistanceTo(coordinateTo)));
@@ -77,6 +89,12 @@ namespace AirportDistanceCalc.Domain.Services
             }
 
             return await airpotResponse.Content.ReadFromJsonAsync<AirportVO>();
+        }
+
+        private async void SaveSearchHistory(Airport origin)
+        {
+            await _airportRepository.Add(origin);
+            await _airportRepository.SaveChanges();
         }
     }
 }

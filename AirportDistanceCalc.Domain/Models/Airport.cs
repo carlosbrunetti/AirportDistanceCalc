@@ -14,7 +14,9 @@ namespace AirportDistanceCalc.Domain.Models
         public string Name { get; set; }
         public string Type { get; set; }
         public int Hubs { get; set; }
+        public Airport? AirportDestination { get; set; }
+        public Guid LocationId { get; set; }
         public Location Location { get; set; }
-        public DateTime CreatedIn { get; } = DateTime.Now;
+        public DateTime CreatedIn { get; set; } = DateTime.Now;
     }
 }
