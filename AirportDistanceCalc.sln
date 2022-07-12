@@ -5,9 +5,11 @@ VisualStudioVersion = 17.1.32210.238
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AirportDistanceCalc.Api", "AirportDistanceCalc\AirportDistanceCalc.Api.csproj", "{54617A40-E597-4FB1-8C83-1B964CE6924F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AirportDistanceCalc.Infrastructure", "AirportDistanceCalc.Infrastructure\AirportDistanceCalc.Infrastructure.csproj", "{6B0F5B37-54B6-4974-B24F-1BD06DA5BD07}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AirportDistanceCalc.Infrastructure", "AirportDistanceCalc.Infrastructure\AirportDistanceCalc.Infrastructure.csproj", "{6B0F5B37-54B6-4974-B24F-1BD06DA5BD07}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AirportDistanceCalc.Domain", "AirportDistanceCalc.Domain\AirportDistanceCalc.Domain.csproj", "{5F5B4E6F-FA0D-40A0-B337-5EC3D025407A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AirportDistanceCalc.Domain", "AirportDistanceCalc.Domain\AirportDistanceCalc.Domain.csproj", "{5F5B4E6F-FA0D-40A0-B337-5EC3D025407A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AirportDistanceCalc.Tests", "AirportDistanceCalc.Tests\AirportDistanceCalc.Tests.csproj", "{CF9343C2-8EA9-49A2-B6C4-86726B928EFF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{5F5B4E6F-FA0D-40A0-B337-5EC3D025407A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5F5B4E6F-FA0D-40A0-B337-5EC3D025407A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5F5B4E6F-FA0D-40A0-B337-5EC3D025407A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CF9343C2-8EA9-49A2-B6C4-86726B928EFF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF9343C2-8EA9-49A2-B6C4-86726B928EFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF9343C2-8EA9-49A2-B6C4-86726B928EFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF9343C2-8EA9-49A2-B6C4-86726B928EFF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

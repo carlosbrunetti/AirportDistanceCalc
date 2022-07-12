@@ -8,7 +8,6 @@ namespace AirportDistanceCalc.Controllers
     [ApiController]
     public class AirportController : ControllerBase
     {
-
         private readonly IAirportService _airportService;
 
         public AirportController(IAirportService airportService)
@@ -35,6 +34,5 @@ namespace AirportDistanceCalc.Controllers
         {
             return Ok(await _airportService.GetReportOfMostSearched());
         } 
-        
     }
 }
