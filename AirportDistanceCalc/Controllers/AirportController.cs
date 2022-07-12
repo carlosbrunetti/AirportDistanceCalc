@@ -16,7 +16,7 @@ namespace AirportDistanceCalc.Controllers
             _airportService = airportService;
         }
 
-        [HttpPost(Name = "CalcDistanceBetweenAirports")]
+        [HttpGet("CalcDistanceBetweenAirports", Name = "CalcDistanceBetweenAirports")]
         public async Task<IActionResult> GetDistanceBetweenAirports([FromQuery] AirportCalcRequest airports)
         {
             var response = await _airportService.CalcDistanceBetweenAirports(airports);
@@ -24,12 +24,17 @@ namespace AirportDistanceCalc.Controllers
             return !response.Errors.Any() ? Ok(response) : BadRequest(response);
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Get()
+        [HttpGet("GetAllSearches", Name = "GetAllSearches")]
+        public async Task<IActionResult> GetAllSearches()
         {
-            return Ok(await _airportService.GetAll());
-
-            //return !response.Errors.Any() ? Ok(response) : BadRequest(response);
+            return Ok(await _airportService.GetAllSearches());
         }
+
+        [HttpGet("GetReportOfMostSearched", Name = "GetReportOfMostSearched")]
+        public async Task<IActionResult> GetReportOfMostSearchedByOrigin()
+        {
+            return Ok(await _airportService.GetReportOfMostSearched());
+        } 
+        
     }
 }

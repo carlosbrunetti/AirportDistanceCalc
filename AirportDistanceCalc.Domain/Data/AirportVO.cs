@@ -13,5 +13,6 @@
         public string type { get; set; }
         public int hubs { get; set; }
         public LocationVO location { get; set; }
+        public AirportVO? AirportDestination { get; set; }
     }
 }

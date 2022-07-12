@@ -44,6 +44,9 @@ namespace AirportDistanceCalc.Api.Config.AutoMapper
                     .ForMember(
                         dest => dest.type,
                         opt => opt.MapFrom(src => src.Type))
+                    .ForMember(
+                        dest => dest.AirportDestination,
+                        opt => opt.MapFrom(src => src.AirportDestination))
                     .ReverseMap();
 
                 config.CreateMap<Location, LocationVO>()

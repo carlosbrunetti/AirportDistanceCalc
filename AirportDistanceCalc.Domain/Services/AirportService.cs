@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Http;
 using System.Net.Http.Json;
 using AirportDistanceCalc.Domain.Repositories.Interfaces;
 using AirportDistanceCalc.Domain.Models;
+using AirportDistanceCalc.Domain.Models.Reports;
 
 namespace AirportDistanceCalc.Domain.Services
 {
@@ -24,7 +25,7 @@ namespace AirportDistanceCalc.Domain.Services
         private readonly IAirportRepository _airportRepository;
         private Response _response;
 
-        public AirportService(IMapper mapper, AirportAPI airportAPI, IValidator<AirportCalcRequest> validator,IAirportRepository airportRepository)
+        public AirportService(IMapper mapper, AirportAPI airportAPI, IValidator<AirportCalcRequest> validator, IAirportRepository airportRepository)
         {
             _mapper = mapper;
             _airportAPI = airportAPI;
@@ -33,9 +34,14 @@ namespace AirportDistanceCalc.Domain.Services
             _response = new Response();
         }
 
-        public async Task<List<AirportVO>> GetAll()
+        public async Task<List<AirportVO>> GetAllSearches()
         {
-            return _mapper.Map<List<AirportVO>>(await _airportRepository.GetAll());
+            return _mapper.Map<List<AirportVO>>(await _airportRepository.GetAllSearches());
+        }
+
+        public async Task<List<CityReport>> GetReportOfMostSearched()
+        {
+            return await _airportRepository.GetReportOfMostSearched();
         }
 
         public async Task<Response> CalcDistanceBetweenAirports(AirportCalcRequest airports)
@@ -53,11 +59,11 @@ namespace AirportDistanceCalc.Domain.Services
             }
 
             var origin = _mapper.Map<Airport>(await GetAirport(airports.Origin, EnumAirport.Origin));
-            var destination = _mapper.Map<Airport> (await GetAirport(airports.Destination, EnumAirport.Destination));
+            var destination = _mapper.Map<Airport>(await GetAirport(airports.Destination, EnumAirport.Destination));
 
             if (origin is null || destination is null)
                 return _response;
-            
+
             origin.AirportDestination = destination;
             SaveSearchHistory(origin);
 
