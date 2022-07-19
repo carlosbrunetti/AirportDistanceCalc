@@ -17,4 +17,8 @@
     <ProjectReference Include="..\AirportDistanceCalc.Infrastructure\AirportDistanceCalc.Infrastructure.csproj" />
   </ItemGroup>
 
+	<ItemGroup>
+		<InternalsVisibleTo Include="AirportDistanceCalc.Tests" />
+	</ItemGroup>
+
 </Project>

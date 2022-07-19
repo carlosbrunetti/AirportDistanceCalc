@@ -6,6 +6,6 @@ namespace AirportDistanceCalc.Domain.Models.Request
     {
         public string Origin { get; set; }
         public string Destination { get; set; }
-        public UnitOfMeasureEnum? UnitOfMeasure { get; set; }
+        public UnitOfMeasureEnum UnitOfMeasure { get; set; }
     }
 }

@@ -70,11 +70,11 @@ namespace AirportDistanceCalc.Domain.Services
             var coordinateFrom = new GeoCoordinate(origin.Location.Latitude, origin.Location.Longitude);
             var coordinateTo = new GeoCoordinate(destination.Location.Latitude, destination.Location.Longitude);
 
-            var distance = Extensions.ConvertMetersTo(coordinateFrom.GetDistanceTo(coordinateTo),airports.UnitOfMeasure.Value);
+            var distance = Extensions.ConvertMetersTo(coordinateFrom.GetDistanceTo(coordinateTo),airports.UnitOfMeasure);
 
             _response.StatusCode = StatusCodes.Status200OK;
             _response.Data.Add("Distance", distance);
-            _response.Data.Add("Message", $"The distance between these airport is {distance} {airports.UnitOfMeasure.Value.Description()}.");
+            _response.Data.Add("Message", $"The distance between these airport is {distance} {airports.UnitOfMeasure.Description()}.");
 
             return _response;
 

@@ -20,19 +20,21 @@ namespace AirportDistanceCalc.Controllers
         {
             var response = await _airportService.CalcDistanceBetweenAirports(airports);
 
-            return !response.Errors.Any() ? Ok(response) : BadRequest(response);
+            return !response.Errors.Any() ? Ok(response) : NotFound(response);
         }
 
         [HttpGet("GetAllSearches", Name = "GetAllSearches")]
         public async Task<IActionResult> GetAllSearches()
         {
-            return Ok(await _airportService.GetAllSearches());
+            var response = await _airportService.GetAllSearches();
+            return response.Any() ? Ok(response) : NotFound(response);
         }
 
         [HttpGet("GetReportOfMostSearched", Name = "GetReportOfMostSearched")]
         public async Task<IActionResult> GetReportOfMostSearchedByOrigin()
         {
-            return Ok(await _airportService.GetReportOfMostSearched());
+            var response = await _airportService.GetReportOfMostSearched();
+            return response.Any() ? Ok(response) : NotFound(response);
         } 
     }
 }
